@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Calculator Login Page</title>
+    <link rel="stylesheet" href="calculator_login.css">
+    <link rel="stylesheet" href="calculator_login.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+            <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/
+    4.0.0/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/
+    jquery/3.3.1/jquery.min.js">
+    </script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/
+    popper.js/1.12.9/umd/popper.min.js">
+    </script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/
+    4.0.0/js/bootstrap.min.js">
+    </script>
+</head>
+
+<body>
+    <script>
+        // Document is ready
+$(document).ready(()=> {
+    // Validate Username
+    $("#usercheck").hide();
+    $("#emailvalid").hide();
+    $("#passcheck").hide();
+
+    let usernameError = true;
+    $("#usernames").keyup( ()=> {
+      validateUsername();
+    });
+   
+    function validateUsername() {
+      let usernameValue = $("#usernames").val();
+      if (usernameValue.length == "") {
+        $("#usercheck").show();
+        $("#usercheck").html("Cannot be empty");
+        usernameError = false;
+      } else if (usernameValue.length < 3 || usernameValue.length > 10) {
+        $("#usercheck").show();
+        $("#usercheck").html("**length of username must be between 3 and 10");
+        usernameError = false;
+        return false;
+      } else {
+        usernameError=true
+        $("#usercheck").hide();
+      }
+      return usernameError;
+    }
+   
+    let emailError = true;
+    // Validate Email
+    $("#email").blur( ()=> {
+      validateEmail();
+    });
+    function validateEmail() {
+        let emailValue = $("#email").val();
+        if (emailValue.length == "") {
+        $("#emailvalid").show();
+        $("#emailvalid").html("Cannot be empty");
+        emailError = false;
+      }
+      else{
+        const re = /^([_\-\.0-9a-zA-Z]+)@northeastern.edu$/;
+          if(re.test(emailValue)){
+            $("#emailvalid").hide();
+            emailError = true;
+            return true;
+          }
+          else{
+            $("#emailvalid").show();
+        $("#emailvalid").html("must end with northeastern.edu");
+        emailError = false;
+          }
+      }
+      return emailError;
+
+
+    }
+
+
+   
+   
+    // Validate Password
+    $("#passcheck").hide();
+    let passwordError = true;
+    $("#password").keyup(() =>{
+      validatePassword();
+    });
+    function validatePassword() {
+      let passwordValue = $("#password").val();
+      if (passwordValue.length == "") {
+        $("#passcheck").show();
+        $("#passcheck").html("Cannot be empty");
+        passwordError = false;
+      }
+      else{
+        const re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+          if(re.test(passwordValue)){
+            $("#passcheck").hide();
+            passwordError = true;
+            return true;
+          }
+          else{
+            $("#passcheck").show();
+        $("#passcheck").html("Password must has at least 8 characters that include at least 1 lowercase character, 1 uppercase characters, 1 number, and 1 special character in (!@#$%^&*)");
+        passwordError = false;
+          }
+      }
+      return passwordError;
+      
+    }
+
+
+    function passvalue(){
+    var firstname=$("#usernames").val();
+    localStorage.setItem("textvalue",firstname);
+}
+   
+    // Submit button
+    $("#submitbtn").click( ()=> {
+      validateUsername();
+      validatePassword();
+      validateEmail();
+      console.log(usernameError == true,
+        passwordError == true,
+        emailError == true);
+      if (
+        usernameError == true &&
+        passwordError == true &&
+        emailError == true
+      ) {
+        window.location.href="calculator.html";  
+            passvalue()
+        return true;
+      } else {
+        return false;
+      }
+    });
+});
+    </script>
+    <header>
+        <h1>Calculator Login</h1>
+    </header>
+    <div class="container">
+        <form id="signup" class="form" action="calculator.html">
+            <h1>LOGIN</h1>
+            <div class="form-field">
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="usernames" autocomplete="off">
+                <h5 id="usercheck" style="color: red;">
+                    **Username is missing
+                </h5>
+            </div>
+
+            <div class="form-field">
+                <label for="email">Email:</label>
+                <input type="text" name="email" id="email" autocomplete="off">
+                <small id="emailvalid" style="color: red;">
+                        Your email must be a valid email
+                    </small>
+            </div>
+
+            <div class="form-field">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" autocomplete="off">
+                <h5 id="passcheck" style="color: red;">
+                    **Please Fill the password
+                </h5>
+            </div>
+
+            <div class="form-field">
+                <input type="submit" id="submitbtn" value="Login" style="background-color: #2a9ff3;color: white;">
+            </div>
+        </form>
+    </div>
+
+
+
+    <script src="./calculator_login.js"></script>
+</body>
+
+</html>
