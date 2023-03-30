@@ -1,0 +1,9 @@
+#list-item{
+    background-color: rgb(232, 222, 221);
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    border: 3px solid rgb(2, 2, 109);
+    width: 60%;
+    margin: auto;
+}
